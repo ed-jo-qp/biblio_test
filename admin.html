@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administración - Biblioteca Virtual Universitaria</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <i class="fas fa-book-open"></i>
+                <h1>BiblioUni</h1>
+            </div>
+            <nav class="nav">
+                <ul>
+                    <li><a href="index.html" class="nav-link">Inicio</a></li>
+                    <li><a href="catalog.html" class="nav-link">Catálogo</a></li>
+                    <li><a href="loans.html" class="nav-link">Préstamos</a></li>
+                    <li><a href="admin.html" class="nav-link active">Administración</a></li>
+                    <li><a href="services.html" class="nav-link">Servicios</a></li>
+                    <li><a href="about.html" class="nav-link">Acerca de</a></li>
+                    <li><a href="contact.html" class="nav-link">Contacto</a></li>
+                </ul>
+            </nav>
+            <div class="user-actions">
+                <button class="btn-login">
+                    <i class="fas fa-user"></i>
+                    Iniciar Sesión
+                </button>
+                <button class="btn-admin" onclick="toggleAdminMode()" style="display: none;">
+                    <i class="fas fa-cog"></i>
+                    Admin
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Administration Section -->
+    <section id="admin" class="admin section">
+        <div class="container">
+            <h2 class="section-title">Panel de Administración</h2>
+            <div class="admin-tabs">
+                <button class="tab-btn active" onclick="showAdminTab('add-book')">Agregar Libro</button>
+                <button class="tab-btn" onclick="showAdminTab('manage-books')">Gestionar Libros</button>
+                <button class="tab-btn" onclick="showAdminTab('manage-loans')">Gestionar Préstamos</button>
+                <button class="tab-btn" onclick="showAdminTab('reports')">Reportes</button>
+            </div>
+            
+            <!-- Add Book Tab -->
+            <div id="add-book-tab" class="admin-tab active">
+                <h3>Agregar Nuevo Libro</h3>
+                <form id="addBookForm" class="admin-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="bookTitle">Título *</label>
+                            <input type="text" id="bookTitle" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="bookAuthor">Autor *</label>
+                            <input type="text" id="bookAuthor" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="bookISBN">ISBN</label>
+                            <input type="text" id="bookISBN" placeholder="978-84-1234-567-8">
+                        </div>
+                        <div class="form-group">
+                            <label for="bookDewey">Código Dewey *</label>
+                            <input type="text" id="bookDewey" required placeholder="Ej: 004.678 GAR">
+                            <small>Formato: [Número Dewey] [Tres primeras letras del apellido del autor]</small>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="bookCategory">Categoría *</label>
+                            <select id="bookCategory" required>
+                                <option value="">Seleccionar Categoría</option>
+                                <option value="ciencia">Ciencia</option>
+                                <option value="literatura">Literatura</option>
+                                <option value="historia">Historia</option>
+                                <option value="tecnologia">Tecnología</option>
+                                <option value="medicina">Medicina</option>
+                                <option value="derecho">Derecho</option>
+                                <option value="ecologia">Ecología y Sostenibilidad</option>
+                                <option value="filosofia">Filosofía</option>
+                                <option value="arte">Arte</option>
+                                <option value="matematicas">Matemáticas</option>
+                                <option value="psicologia">Psicología</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="bookType">Tipo *</label>
+                            <select id="bookType" required>
+                                <option value="">Seleccionar Tipo</option>
+                                <option value="libro">Libro</option>
+                                <option value="revista">Revista</option>
+                                <option value="articulo">Artículo</option>
+                                <option value="tesis">Tesis</option>
+                                <option value="manual">Manual</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="bookYear">Año de Publicación *</label>
+                            <input type="number" id="bookYear" required min="1900" max="2025">
+                        </div>
+                        <div class="form-group">
+                            <label for="bookPages">Número de Páginas</label>
+                            <input type="number" id="bookPages" min="1">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="bookPublisher">Editorial</label>
+                            <input type="text" id="bookPublisher">
+                        </div>
+                        <div class="form-group">
+                            <label for="bookLanguage">Idioma</label>
+                            <select id="bookLanguage">
+                                <option value="Español">Español</option>
+                                <option value="Inglés">Inglés</option>
+                                <option value="Francés">Francés</option>
+                                <option value="Alemán">Alemán</option>
+                                <option value="Portugués">Portugués</option>
+                                <option value="Italiano">Italiano</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="bookCopies">Número de Copias *</label>
+                            <input type="number" id="bookCopies" required min="1" value="1">
+                        </div>
+                        <div class="form-group">
+                            <label for="bookLocation">Ubicación Física</label>
+                            <input type="text" id="bookLocation" placeholder="Ej: Piso 2, Estante A-15">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="bookDescription">Descripción</label>
+                        <textarea id="bookDescription" rows="4" placeholder="Descripción del contenido del libro..."></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="bookCover">URL de la Portada</label>
+                        <input type="url" id="bookCover" placeholder="https://ejemplo.com/portada.jpg">
+                    </div>
+                    <button type="submit" class="submit-btn">
+                        <i class="fas fa-plus"></i>
+                        Agregar Libro
+                    </button>
+                </form>
+            </div>
+            
+            <!-- Manage Books Tab -->
+            <div id="manage-books-tab" class="admin-tab">
+                <h3>Gestionar Libros</h3>
+                <div class="book-management">
+                    <div class="management-filters">
+                        <input type="text" id="manageSearch" placeholder="Buscar por título, autor, código Dewey...">
+                        <select id="manageCategory">
+                            <option value="">Todas las categorías</option>
+                            <option value="ciencia">Ciencia</option>
+                            <option value="literatura">Literatura</option>
+                            <option value="historia">Historia</option>
+                            <option value="tecnologia">Tecnología</option>
+                            <option value="medicina">Medicina</option>
+                            <option value="derecho">Derecho</option>
+                            <option value="ecologia">Ecología y Sostenibilidad</option>
+                        </select>
+                        <button onclick="filterManagedBooks()">Filtrar</button>
+                    </div>
+                    <div id="managedBooks" class="managed-books">
+                        <!-- Los libros para gestionar se cargarán aquí -->
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Manage Loans Tab -->
+            <div id="manage-loans-tab" class="admin-tab">
+                <h3>Gestionar Préstamos</h3>
+                <div class="loan-management">
+                    <div class="management-stats">
+                        <div class="stat-card">
+                            <h4>Préstamos Activos</h4>
+                            <span id="activeLoansCount">0</span>
+                        </div>
+                        <div class="stat-card">
+                            <h4>Préstamos Vencidos</h4>
+                            <span id="overdueLoansCount">0</span>
+                        </div>
+                        <div class="stat-card">
+                            <h4>Préstamos Hoy</h4>
+                            <span id="todayLoansCount">0</span>
+                        </div>
+                    </div>
+                    <div class="loan-filters">
+                        <select id="loanStatusFilter">
+                            <option value="">Todos los estados</option>
+                            <option value="active">Activos</option>
+                            <option value="overdue">Vencidos</option>
+                            <option value="pending">Pendientes</option>
+                        </select>
+                        <input type="date" id="loanDateFilter">
+                        <button onclick="filterLoansAdmin()">Filtrar</button>
+                    </div>
+                    <div id="managedLoans" class="managed-loans">
+                        <!-- Los préstamos para gestionar se cargarán aquí -->
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Reports Tab -->
+            <div id="reports-tab" class="admin-tab">
+                <h3>Reportes y Estadísticas</h3>
+                <div class="reports-grid">
+                    <div class="report-card">
+                        <h4>Libros Más Solicitados</h4>
+                        <div id="popularBooks" class="report-content">
+                            <!-- Contenido del reporte -->
+                        </div>
+                    </div>
+                    <div class="report-card">
+                        <h4>Estadísticas de Préstamos</h4>
+                        <div id="loanStats" class="report-content">
+                            <!-- Contenido del reporte -->
+                        </div>
+                    </div>
+                    <div class="report-card">
+                        <h4>Usuarios Más Activos</h4>
+                        <div id="activeUsers" class="report-content">
+                            <!-- Contenido del reporte -->
+                        </div>
+                    </div>
+                    <div class="report-card">
+                        <h4>Inventario por Categoría</h4>
+                        <div id="categoryInventory" class="report-content">
+                            <!-- Contenido del reporte -->
+                        </div>
+                    </div>
+                </div>
+                <div class="report-actions">
+                    <button onclick="generateReport('monthly')" class="report-btn">
+                        <i class="fas fa-file-pdf"></i>
+                        Generar Reporte Mensual
+                    </button>
+                    <button onclick="generateReport('inventory')" class="report-btn">
+                        <i class="fas fa-clipboard-list"></i>
+                        Reporte de Inventario
+                    </button>
+                    <button onclick="generateReport('overdue')" class="report-btn">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        Reporte de Vencidos
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>BiblioUni</h3>
+                    <p>Tu biblioteca virtual universitaria con acceso a miles de recursos académicos.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>Enlaces Rápidos</h4>
+                    <ul>
+                        <li><a href="index.html">Inicio</a></li>
+                        <li><a href="catalog.html">Catálogo</a></li>
+                        <li><a href="services.html">Servicios</a></li>
+                        <li><a href="about.html">Acerca de</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contacto</h4>
+                    <p><i class="fas fa-envelope"></i> info@bibliouji.edu</p>
+                    <p><i class="fas fa-phone"></i> (555) 123-4567</p>
+                    <p><i class="fas fa-map-marker-alt"></i> Campus Universitario</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Horarios</h4>
+                    <p>Lunes - Viernes: 8:00 AM - 10:00 PM</p>
+                    <p>Sábados: 9:00 AM - 6:00 PM</p>
+                    <p>Domingos: 12:00 PM - 8:00 PM</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 BiblioUni. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Login Modal -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Iniciar Sesión</h2>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="username">Usuario:</label>
+                    <input type="text" id="username" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Contraseña:</label>
+                    <input type="password" id="password" required>
+                </div>
+                <button type="submit">Iniciar Sesión</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="config.js"></script>
+    <script src="database.js"></script>
+    <script src="api.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

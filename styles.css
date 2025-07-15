@@ -470,6 +470,128 @@ body {
     line-height: 1.6;
 }
 
+/* Featured Services */
+.featured-services {
+    padding: 4rem 0;
+    background-color: var(--light-color);
+}
+
+.featured-services h2 {
+    text-align: center;
+    color: var(--primary-color);
+    margin-bottom: 3rem;
+    font-size: 2.5rem;
+}
+
+.services-preview {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+.service-preview {
+    background-color: var(--white-color);
+    padding: 2rem;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    text-align: center;
+    transition: var(--transition);
+}
+
+.service-preview:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+}
+
+.service-preview i {
+    font-size: 3rem;
+    color: var(--secondary-color);
+    margin-bottom: 1rem;
+}
+
+.service-preview h3 {
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+}
+
+.service-preview p {
+    color: var(--gray-color);
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+}
+
+/* Detail Tabs */
+.detail-tabs {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    border-bottom: 2px solid var(--light-color);
+}
+
+.detail-tab {
+    background: none;
+    border: none;
+    padding: 1rem 2rem;
+    cursor: pointer;
+    font-weight: 500;
+    color: var(--gray-color);
+    border-bottom: 2px solid transparent;
+    transition: var(--transition);
+}
+
+.detail-tab.active {
+    color: var(--secondary-color);
+    border-bottom-color: var(--secondary-color);
+}
+
+.detail-content {
+    display: none;
+}
+
+.detail-content.active {
+    display: block;
+}
+
+.service-feature {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    padding: 1rem;
+    background-color: var(--white-color);
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+}
+
+.service-feature i {
+    font-size: 2rem;
+    color: var(--secondary-color);
+    margin-top: 0.5rem;
+}
+
+.service-feature h5 {
+    color: var(--primary-color);
+    margin-bottom: 0.5rem;
+}
+
+.service-feature p {
+    color: var(--gray-color);
+    line-height: 1.5;
+}
+
+.service-details {
+    margin-top: 3rem;
+}
+
+.service-details h3 {
+    text-align: center;
+    color: var(--primary-color);
+    margin-bottom: 2rem;
+    font-size: 2rem;
+}
+
 /* Footer */
 .footer {
     background: #2c3e50;

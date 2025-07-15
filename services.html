@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Servicios - Biblioteca Virtual Universitaria</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <i class="fas fa-book-open"></i>
+                <h1>BiblioUni</h1>
+            </div>
+            <nav class="nav">
+                <ul>
+                    <li><a href="index.html" class="nav-link">Inicio</a></li>
+                    <li><a href="catalog.html" class="nav-link">Catálogo</a></li>
+                    <li><a href="loans.html" class="nav-link">Préstamos</a></li>
+                    <li><a href="admin.html" class="nav-link">Administración</a></li>
+                    <li><a href="services.html" class="nav-link active">Servicios</a></li>
+                    <li><a href="about.html" class="nav-link">Acerca de</a></li>
+                    <li><a href="contact.html" class="nav-link">Contacto</a></li>
+                </ul>
+            </nav>
+            <div class="user-actions">
+                <button class="btn-login">
+                    <i class="fas fa-user"></i>
+                    Iniciar Sesión
+                </button>
+                <button class="btn-admin" onclick="toggleAdminMode()" style="display: none;">
+                    <i class="fas fa-cog"></i>
+                    Admin
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Services Section -->
+    <section id="services" class="services section">
+        <div class="container">
+            <h2 class="section-title">Nuestros Servicios</h2>
+            <div class="services-grid">
+                <div class="service-card">
+                    <i class="fas fa-download"></i>
+                    <h3>Descarga Digital</h3>
+                    <p>Descarga libros y documentos en formato PDF, EPUB y más formatos académicos</p>
+                    <ul>
+                        <li>Acceso inmediato a documentos</li>
+                        <li>Múltiples formatos disponibles</li>
+                        <li>Enlaces verificados y seguros</li>
+                        <li>Compatibilidad con todos los dispositivos</li>
+                    </ul>
+                </div>
+                <div class="service-card">
+                    <i class="fas fa-bookmark"></i>
+                    <h3>Favoritos</h3>
+                    <p>Guarda tus libros favoritos para acceso rápido y organización personal</p>
+                    <ul>
+                        <li>Lista personalizada de favoritos</li>
+                        <li>Acceso rápido desde cualquier página</li>
+                        <li>Organización por categorías</li>
+                        <li>Sincronización en todos tus dispositivos</li>
+                    </ul>
+                </div>
+                <div class="service-card">
+                    <i class="fas fa-comments"></i>
+                    <h3>Reseñas y Comentarios</h3>
+                    <p>Lee y escribe reseñas de libros con otros usuarios de la comunidad académica</p>
+                    <ul>
+                        <li>Sistema de calificación por estrellas</li>
+                        <li>Comentarios detallados</li>
+                        <li>Recomendaciones personalizadas</li>
+                        <li>Comunidad académica activa</li>
+                    </ul>
+                </div>
+                <div class="service-card">
+                    <i class="fas fa-history"></i>
+                    <h3>Historial de Actividades</h3>
+                    <p>Revisa tu historial completo de lecturas, descargas y préstamos</p>
+                    <ul>
+                        <li>Historial de préstamos completo</li>
+                        <li>Registro de descargas</li>
+                        <li>Estadísticas de uso personal</li>
+                        <li>Exportación de datos</li>
+                    </ul>
+                </div>
+                <div class="service-card">
+                    <i class="fas fa-bell"></i>
+                    <h3>Notificaciones</h3>
+                    <p>Recibe alertas sobre nuevos libros, recordatorios de vencimientos y más</p>
+                    <ul>
+                        <li>Recordatorios de vencimientos</li>
+                        <li>Notificaciones de nuevos libros</li>
+                        <li>Alertas de disponibilidad</li>
+                        <li>Configuración personalizable</li>
+                    </ul>
+                </div>
+                <div class="service-card">
+                    <i class="fas fa-mobile-alt"></i>
+                    <h3>Acceso Móvil</h3>
+                    <p>Accede desde tu smartphone o tablet con diseño responsivo completo</p>
+                    <ul>
+                        <li>Diseño adaptativo</li>
+                        <li>Funcionalidad completa en móvil</li>
+                        <li>Navegación optimizada</li>
+                        <li>Sincronización automática</li>
+                    </ul>
+                </div>
+                <div class="service-card">
+                    <i class="fas fa-shield-alt"></i>
+                    <h3>Seguridad y Privacidad</h3>
+                    <p>Protección completa de tus datos personales y actividad académica</p>
+                    <ul>
+                        <li>Encriptación de datos</li>
+                        <li>Autenticación segura</li>
+                        <li>Privacidad garantizada</li>
+                        <li>Cumplimiento normativo</li>
+                    </ul>
+                </div>
+                <div class="service-card">
+                    <i class="fas fa-graduation-cap"></i>
+                    <h3>Recursos Académicos</h3>
+                    <p>Acceso especializado a recursos universitarios y material de investigación</p>
+                    <ul>
+                        <li>Contenido académico verificado</li>
+                        <li>Material de investigación</li>
+                        <li>Recursos por facultad</li>
+                        <li>Bibliografías especializadas</li>
+                    </ul>
+                </div>
+                <div class="service-card">
+                    <i class="fas fa-headset"></i>
+                    <h3>Soporte Técnico</h3>
+                    <p>Asistencia técnica disponible 24/7 para resolver cualquier inconveniente</p>
+                    <ul>
+                        <li>Soporte 24/7</li>
+                        <li>Chat en vivo</li>
+                        <li>Guías de usuario</li>
+                        <li>Resolución rápida de problemas</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Service Details Section -->
+            <div class="service-details">
+                <h3>Detalles de Nuestros Servicios</h3>
+                <div class="detail-tabs">
+                    <button class="detail-tab active" onclick="showDetailTab('digital')">Servicios Digitales</button>
+                    <button class="detail-tab" onclick="showDetailTab('physical')">Servicios Físicos</button>
+                    <button class="detail-tab" onclick="showDetailTab('support')">Soporte</button>
+                </div>
+
+                <div id="digital-detail" class="detail-content active">
+                    <h4>Servicios Digitales</h4>
+                    <div class="service-feature">
+                        <i class="fas fa-cloud-download-alt"></i>
+                        <div>
+                            <h5>Descarga Instantánea</h5>
+                            <p>Accede a documentos académicos con enlaces directos verificados. Formatos disponibles: PDF, EPUB, DOC, y más.</p>
+                        </div>
+                    </div>
+                    <div class="service-feature">
+                        <i class="fas fa-database"></i>
+                        <div>
+                            <h5>Base de Datos Académica</h5>
+                            <p>Más de 15,000 libros y documentos académicos organizados por el sistema Dewey.</p>
+                        </div>
+                    </div>
+                    <div class="service-feature">
+                        <i class="fas fa-search"></i>
+                        <div>
+                            <h5>Búsqueda Avanzada</h5>
+                            <p>Sistema de búsqueda inteligente con filtros por categoría, autor, año y tipo de documento.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="physical-detail" class="detail-content">
+                    <h4>Servicios Físicos</h4>
+                    <div class="service-feature">
+                        <i class="fas fa-book"></i>
+                        <div>
+                            <h5>Préstamos Físicos</h5>
+                            <p>Sistema de préstamos de libros físicos con renovaciones automáticas y recordatorios.</p>
+                        </div>
+                    </div>
+                    <div class="service-feature">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div>
+                            <h5>Ubicación Física</h5>
+                            <p>Localización exacta de libros en la biblioteca con mapas interactivos del campus.</p>
+                        </div>
+                    </div>
+                    <div class="service-feature">
+                        <i class="fas fa-calendar-alt"></i>
+                        <div>
+                            <h5>Reservas</h5>
+                            <p>Sistema de reservas para libros populares con notificaciones de disponibilidad.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="support-detail" class="detail-content">
+                    <h4>Soporte y Asistencia</h4>
+                    <div class="service-feature">
+                        <i class="fas fa-question-circle"></i>
+                        <div>
+                            <h5>Centro de Ayuda</h5>
+                            <p>Guías completas, tutoriales y FAQ para resolver dudas comunes.</p>
+                        </div>
+                    </div>
+                    <div class="service-feature">
+                        <i class="fas fa-envelope"></i>
+                        <div>
+                            <h5>Contacto Directo</h5>
+                            <p>Formulario de contacto y email directo para consultas específicas.</p>
+                        </div>
+                    </div>
+                    <div class="service-feature">
+                        <i class="fas fa-phone"></i>
+                        <div>
+                            <h5>Soporte Telefónico</h5>
+                            <p>Línea telefónica disponible en horario de atención para asistencia inmediata.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>BiblioUni</h3>
+                    <p>Tu biblioteca virtual universitaria con acceso a miles de recursos académicos.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>Enlaces Rápidos</h4>
+                    <ul>
+                        <li><a href="index.html">Inicio</a></li>
+                        <li><a href="catalog.html">Catálogo</a></li>
+                        <li><a href="services.html">Servicios</a></li>
+                        <li><a href="about.html">Acerca de</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contacto</h4>
+                    <p><i class="fas fa-envelope"></i> info@bibliouji.edu</p>
+                    <p><i class="fas fa-phone"></i> (555) 123-4567</p>
+                    <p><i class="fas fa-map-marker-alt"></i> Campus Universitario</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Horarios</h4>
+                    <p>Lunes - Viernes: 8:00 AM - 10:00 PM</p>
+                    <p>Sábados: 9:00 AM - 6:00 PM</p>
+                    <p>Domingos: 12:00 PM - 8:00 PM</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 BiblioUni. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Login Modal -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Iniciar Sesión</h2>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="username">Usuario:</label>
+                    <input type="text" id="username" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Contraseña:</label>
+                    <input type="password" id="password" required>
+                </div>
+                <button type="submit">Iniciar Sesión</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="config.js"></script>
+    <script src="database.js"></script>
+    <script src="api.js"></script>
+    <script src="script.js"></script>
+    <script>
+        // Función para mostrar detalles de servicios
+        function showDetailTab(tab) {
+            // Ocultar todos los contenidos
+            document.querySelectorAll('.detail-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            
+            // Desactivar todos los tabs
+            document.querySelectorAll('.detail-tab').forEach(tabBtn => {
+                tabBtn.classList.remove('active');
+            });
+            
+            // Mostrar el contenido seleccionado
+            document.getElementById(tab + '-detail').classList.add('active');
+            
+            // Activar el tab seleccionado
+            event.target.classList.add('active');
+        }
+    </script>
+</body>
+</html>
