@@ -464,8 +464,10 @@
                         </div>
                         <div class="form-group">
                             <label for="bookDewey">Código Dewey *</label>
-                            <input type="text" id="bookDewey" required placeholder="Ej: 004.678 GAR">
-                            <small>Formato: [Número Dewey] [Tres primeras letras del apellido del autor]</small>
+                            <input type="text" id="bookDewey" required readonly 
+                                   placeholder="Se genera automáticamente" 
+                                   title="El código Dewey se genera automáticamente según la categoría y el autor">
+                            <small>Se genera automáticamente: [Código de categoría].[Número] [Primeras 3 letras del apellido]</small>
                         </div>
                     </div>
                     <div class="form-row">
@@ -479,6 +481,7 @@
                                 <option value="tecnologia">Tecnología</option>
                                 <option value="medicina">Medicina</option>
                                 <option value="derecho">Derecho</option>
+                                <option value="ecologia">Ecología y Sostenibilidad</option>
                                 <option value="filosofia">Filosofía</option>
                                 <option value="arte">Arte</option>
                                 <option value="matematicas">Matemáticas</option>

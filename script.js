@@ -10,11 +10,28 @@ let loans = [];
 let loanHistory = [];
 
 // Inicializar la aplicación
+
+// Inicialización robusta de la base de datos y API
+let libraryDB;
+if (!window.libraryDB) {
+    libraryDB = new LibraryDatabase();
+    window.libraryDB = libraryDB;
+} else {
+    libraryDB = window.libraryDB;
+}
+
+let libraryAPI;
+if (!window.libraryAPI) {
+    libraryAPI = new LibraryAPI(libraryDB);
+    window.libraryAPI = libraryAPI;
+} else {
+    libraryAPI = window.libraryAPI;
+}
+
 document.addEventListener('DOMContentLoaded', async function() {
     await initializeApp();
     setupEventListeners();
     setupModals();
-    
     // Cargar datos iniciales
     await loadBooksFromAPI();
     await loadLoansFromAPI();
@@ -99,7 +116,8 @@ function generateDeweyCode(category, author) {
         'filosofia': '100',
         'arte': '700',
         'matematicas': '510',
-        'psicologia': '150'
+        'psicologia': '150',
+        'ecologia': '333.7'
     };
     
     const categoryCode = deweyCategories[category] || '000';
@@ -107,6 +125,35 @@ function generateDeweyCode(category, author) {
     const subCode = Math.floor(Math.random() * 999).toString().padStart(3, '0');
     
     return `${categoryCode}.${subCode} ${authorCode}`;
+}
+
+// Función para actualizar automáticamente el código Dewey
+function updateDeweyCode() {
+    const categorySelect = document.getElementById('bookCategory');
+    const authorInput = document.getElementById('bookAuthor');
+    const deweyInput = document.getElementById('bookDewey');
+    
+    if (categorySelect && authorInput && deweyInput) {
+        const category = categorySelect.value;
+        const author = authorInput.value.trim();
+        
+        if (category && author) {
+            const deweyCode = generateDeweyCode(category, author);
+            deweyInput.value = deweyCode;
+        }
+    }
+}
+
+// Configurar listeners para actualización automática del código Dewey
+function setupDeweyAutoGeneration() {
+    const categorySelect = document.getElementById('bookCategory');
+    const authorInput = document.getElementById('bookAuthor');
+    
+    if (categorySelect && authorInput) {
+        categorySelect.addEventListener('change', updateDeweyCode);
+        authorInput.addEventListener('input', updateDeweyCode);
+        authorInput.addEventListener('blur', updateDeweyCode);
+    }
 }
 
 // Cargar libros desde data.json
@@ -725,6 +772,9 @@ function setupEventListeners() {
     
     // Modales
     setupModals();
+    
+    // Configurar generación automática de código Dewey
+    setupDeweyAutoGeneration();
     
     // Navegación suave
     setupSmoothScroll();

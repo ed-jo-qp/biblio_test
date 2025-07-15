@@ -722,6 +722,62 @@ body {
     border-color: #667eea;
 }
 
+/* Campo de solo lectura con estilo especial */
+.form-group input[readonly] {
+    background-color: #f8f9fa;
+    border-color: #e9ecef;
+    color: #6c757d;
+    cursor: not-allowed;
+}
+
+.form-group input[readonly]:focus {
+    border-color: #e9ecef;
+    background-color: #f8f9fa;
+}
+
+/* Tooltip para campos de solo lectura */
+.form-group input[readonly][title] {
+    position: relative;
+}
+
+.form-group input[readonly][title]:hover::after {
+    content: attr(title);
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #333;
+    color: white;
+    padding: 0.5rem;
+    border-radius: 4px;
+    white-space: nowrap;
+    z-index: 1000;
+    font-size: 0.875rem;
+    margin-bottom: 5px;
+}
+
+.form-group input[readonly][title]:hover::before {
+    content: '';
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 5px solid transparent;
+    border-top-color: #333;
+    z-index: 1000;
+}
+
+/* Mensaje cuando no hay libros */
+.no-books {
+    text-align: center;
+    padding: 40px;
+    color: #666;
+    font-size: 18px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    margin: 20px 0;
+}
+
 /* Animations */
 @keyframes fadeIn {
     from { opacity: 0; }
