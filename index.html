@@ -45,33 +45,7 @@
             <div class="hero-content">
                 <h2>Bienvenido a tu Biblioteca Virtual</h2>
                 <p>Accede a miles de libros, revistas y recursos académicos desde cualquier lugar</p>
-                <div class="search-container">
-                    <div class="search-box">
-                        <input type="text" id="searchInput" placeholder="Buscar libros, autores, temas...">
-                        <button class="search-btn" onclick="searchBooks()">
-                            <i class="fas fa-search"></i>
-                        </button>
-                    </div>
-                    <div class="search-filters">
-                        <select id="categoryFilter">
-                            <option value="">Todas las categorías</option>
-                            <option value="ciencia">Ciencia</option>
-                            <option value="literatura">Literatura</option>
-                            <option value="historia">Historia</option>
-                            <option value="tecnologia">Tecnología</option>
-                            <option value="medicina">Medicina</option>
-                            <option value="derecho">Derecho</option>
-                            <option value="ecologia">Ecología y Sostenibilidad</option>
-                        </select>
-                        <select id="typeFilter">
-                            <option value="">Todos los tipos</option>
-                            <option value="libro">Libro</option>
-                            <option value="revista">Revista</option>
-                            <option value="articulo">Artículo</option>
-                            <option value="tesis">Tesis</option>
-                        </select>
-                    </div>
-                </div>
+                <!-- Eliminado input de búsqueda duplicado para evitar conflicto de IDs y permitir filtro dinámico en la tabla -->
             </div>
         </div>
     </section>
@@ -216,15 +190,79 @@
     <section id="catalog" class="catalog">
         <div class="container">
           <h2>Catálogo de Libros</h2>
-          <div style="max-width:900px;margin:2rem auto;">
-            <input type="text" id="searchInput" onkeyup="filterTable()" placeholder="Buscar por título, autor o año..." style="width:100%;padding:8px;margin-bottom:12px;">
-            <table id="bibliotecaTable" style="width:100%;border-collapse:collapse;">
+          <style>
+            #catalog .catalog-table-wrap {
+              max-width: 900px;
+              margin: 2rem auto;
+              background: #fff;
+              border-radius: 18px;
+              box-shadow: 0 4px 24px 0 rgba(60,60,90,0.10), 0 1.5px 6px 0 rgba(60,60,90,0.08);
+              padding: 2rem 2rem 1.5rem 2rem;
+            }
+            #catalog #searchInput {
+              width: 100%;
+              padding: 12px 14px;
+              margin-bottom: 18px;
+              border: 1.5px solid #b5b5c2;
+              border-radius: 8px;
+              font-size: 1.08rem;
+              transition: border 0.2s;
+              outline: none;
+              box-shadow: 0 1px 2px 0 rgba(60,60,90,0.04);
+            }
+            #catalog #searchInput:focus {
+              border: 1.5px solid #3a7bd5;
+              background: #f7faff;
+            }
+            #bibliotecaTable {
+              width: 100%;
+              border-collapse: separate;
+              border-spacing: 0;
+              background: #fafbfc;
+              border-radius: 12px;
+              overflow: hidden;
+              box-shadow: 0 1px 4px 0 rgba(60,60,90,0.07);
+            }
+            #bibliotecaTable th, #bibliotecaTable td {
+              padding: 12px 10px;
+              border-bottom: 1px solid #e0e0e0;
+              text-align: left;
+              font-size: 1.01rem;
+            }
+            #bibliotecaTable th {
+              background: linear-gradient(90deg, #e3eafc 0%, #f7faff 100%);
+              color: #2a3a5a;
+              font-weight: 600;
+              border-top: none;
+            }
+            #bibliotecaTable tbody tr:nth-child(even) {
+              background: #f4f7fa;
+            }
+            #bibliotecaTable tbody tr:hover {
+              background: #eaf3ff;
+              transition: background 0.2s;
+            }
+            #bibliotecaTable a {
+              color: #2563eb;
+              text-decoration: none;
+              font-weight: 500;
+              border-bottom: 1px dotted #2563eb;
+              transition: color 0.2s;
+            }
+            #bibliotecaTable a:hover {
+              color: #1e40af;
+              border-bottom: 1px solid #1e40af;
+            }
+          </style>
+          <div class="catalog-table-wrap">
+            <input type="text" id="searchInput" onkeyup="filterTable()" placeholder="Buscar por título, autor o año...">
+            <table id="bibliotecaTable">
               <thead>
-                <tr style="background:#f0f0f0;">
-                  <th style="padding:8px;border:1px solid #ccc;">Título</th>
-                  <th style="padding:8px;border:1px solid #ccc;">Autor(es)</th>
-                  <th style="padding:8px;border:1px solid #ccc;">Año</th>
-                  <th style="padding:8px;border:1px solid #ccc;">Enlace</th>
+                <tr>
+                  <th>Título</th>
+                  <th>Autor(es)</th>
+                  <th>Año</th>
+                  <th>Enlace</th>
                 </tr>
               </thead>
               <tbody>
