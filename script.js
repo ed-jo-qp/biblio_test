@@ -942,7 +942,7 @@ function createBookCard(book) {
     const availabilityBadge = book.available ? 
         '<span class="availability available">Disponible</span>' : 
         '<span class="availability unavailable">No disponible</span>';
-    
+    // Mostrar autor, año y código Dewey de forma visible
     return `
         <div class="book-card" data-book-id="${book.id}">
             <div class="book-cover">
@@ -950,13 +950,14 @@ function createBookCard(book) {
             </div>
             <div class="book-info">
                 <h3 class="book-title">${book.title}</h3>
-                <p class="book-author">por ${book.author}</p>
+                <p class="book-author"><strong>Autor:</strong> ${book.author || '-'}</p>
+                <p class="book-year"><strong>Año:</strong> ${book.year || '-'}</p>
+                <p class="book-dewey"><strong>Código Dewey:</strong> ${book.deweyCode || book.dewey_code || '-'}</p>
                 <span class="book-category">${book.category}</span>
                 <div class="book-rating">
                     <span class="stars">${stars}</span>
                     <span>(${book.rating})</span>
                 </div>
-                <p class="book-year">${book.year}</p>
                 ${availabilityBadge}
                 ${book.formats ? `
                     <div class="book-formats">
@@ -989,7 +990,6 @@ function createBookCard(book) {
 // Crear item de lista
 function createBookListItem(book) {
     const stars = generateStars(book.rating);
-    
     return `
         <div class="book-list-item" data-book-id="${book.id}">
             <div class="book-cover-small">
@@ -997,11 +997,12 @@ function createBookListItem(book) {
             </div>
             <div class="book-info-detailed">
                 <h3 class="book-title">${book.title}</h3>
-                <p class="book-author">por ${book.author}</p>
+                <p class="book-author"><strong>Autor:</strong> ${book.author || '-'}</p>
+                <p class="book-year"><strong>Año:</strong> ${book.year || '-'}</p>
+                <p class="book-dewey"><strong>Código Dewey:</strong> ${book.deweyCode || book.dewey_code || '-'}</p>
                 <p class="book-description">${book.description}</p>
                 <div class="book-meta">
                     <span class="book-category">${book.category}</span>
-                    <span class="book-year">${book.year}</span>
                     <div class="book-rating">
                         <span class="stars">${stars}</span>
                         <span>(${book.rating})</span>
