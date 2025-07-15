@@ -8,8 +8,26 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 </head>
 <body>
+    <!-- Login Overlay -->
+    <div id="loginOverlay" style="position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(30,40,60,0.85);z-index:9999;display:flex;align-items:center;justify-content:center;">
+      <div style="background:#fff;padding:2.5rem 2.5rem 2rem 2.5rem;border-radius:18px;box-shadow:0 4px 24px 0 rgba(60,60,90,0.18);min-width:320px;max-width:90vw;">
+        <h2 style="margin-bottom:1.5rem;text-align:center;color:#2a3a5a;">Acceso a la Biblioteca</h2>
+        <form id="loginAccessForm" autocomplete="off">
+          <div style="margin-bottom:1.1rem;">
+            <label for="loginUser" style="display:block;font-weight:500;margin-bottom:0.3rem;">Usuario</label>
+            <input id="loginUser" type="text" style="width:100%;padding:10px 12px;border-radius:7px;border:1.5px solid #b5b5c2;font-size:1rem;" required autofocus>
+          </div>
+          <div style="margin-bottom:1.3rem;">
+            <label for="loginPass" style="display:block;font-weight:500;margin-bottom:0.3rem;">Contraseña</label>
+            <input id="loginPass" type="password" style="width:100%;padding:10px 12px;border-radius:7px;border:1.5px solid #b5b5c2;font-size:1rem;" required>
+          </div>
+          <div id="loginError" style="color:#c00;font-size:0.98rem;margin-bottom:1rem;display:none;text-align:center;">Credenciales incorrectas</div>
+          <button type="submit" style="width:100%;padding:11px 0;background:#2563eb;color:#fff;font-weight:600;border:none;border-radius:7px;font-size:1.08rem;cursor:pointer;">Ingresar</button>
+        </form>
+      </div>
+    </div>
     <!-- Header -->
-    <header class="header">
+    <header class="header" id="mainHeader" style="display:none;">
         <div class="container">
             <div class="logo">
                 <i class="fas fa-book-open"></i>
@@ -107,7 +125,7 @@
 
     <!-- Footer -->
     <footer class="footer">
-        <div class="container">
+        <div class="container" id="mainFooter" style="display:none;">
             <div class="footer-content">
                 <div class="footer-section">
                     <h3>BiblioUni</h3>
@@ -188,7 +206,7 @@
 
     <!-- Catalog Section -->
     <section id="catalog" class="catalog">
-        <div class="container">
+        <div class="container" id="mainCatalog" style="display:none;">
           <h2>Catálogo de Libros</h2>
           <style>
             #catalog .catalog-table-wrap {
@@ -300,7 +318,7 @@
 
     <!-- Services Section -->
     <section id="services" class="services">
-        <div class="container">
+        <div class="container" id="mainServices" style="display:none;">
             <h2>Nuestros Servicios</h2>
             <div class="services-grid">
                 <div class="service-card">
@@ -339,7 +357,7 @@
 
     <!-- Loans Section -->
     <section id="loans" class="loans">
-        <div class="container">
+        <div class="container" id="mainLoans" style="display:none;">
             <h2>Sistema de Préstamos</h2>
             <div class="loans-tabs">
                 <button class="tab-btn active" onclick="showLoanTab('request')">Solicitar Préstamo</button>
@@ -471,7 +489,41 @@
 
     <!-- Administration Section -->
     <section id="admin" class="admin">
-        <div class="container">
+        <div class="container" id="mainAdmin" style="display:none;">
+<script>
+// Protección de acceso por credenciales
+document.addEventListener('DOMContentLoaded', function() {
+  const overlay = document.getElementById('loginOverlay');
+  const form = document.getElementById('loginAccessForm');
+  const user = document.getElementById('loginUser');
+  const pass = document.getElementById('loginPass');
+  const error = document.getElementById('loginError');
+  // Oculta todo el contenido principal hasta login
+  function showMainContent() {
+    document.getElementById('mainHeader').style.display = '';
+    document.getElementById('mainFooter').style.display = '';
+    document.getElementById('mainCatalog').style.display = '';
+    document.getElementById('mainServices').style.display = '';
+    document.getElementById('mainLoans').style.display = '';
+    document.getElementById('mainAdmin').style.display = '';
+  }
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+    if(user.value.trim()==='admin' && pass.value==='1234') {
+      overlay.style.display = 'none';
+      showMainContent();
+    } else {
+      error.style.display = 'block';
+      pass.value = '';
+      pass.focus();
+    }
+  });
+  // Evita cerrar el modal con Escape o click fuera
+  overlay.addEventListener('click', e => { e.stopPropagation(); });
+  form.addEventListener('click', e => { e.stopPropagation(); });
+  user.focus();
+});
+</script>
             <h2>Panel de Administración</h2>
             <div class="admin-tabs">
                 <button class="tab-btn active" onclick="showAdminTab('add-book')">Agregar Libro</button>
