@@ -196,6 +196,67 @@
     <script src="database.js"></script>
     <script src="api.js"></script>
     <script src="script.js"></script>
+</script>
+<script>
+// Asegura que los elementos y listeners estén listos para las funciones de búsqueda y agregar libro
+document.addEventListener('DOMContentLoaded', function() {
+  // Si no existe el contenedor de resultados, créalo
+  if (!document.getElementById('searchResults')) {
+    const resultsDiv = document.createElement('div');
+    resultsDiv.id = 'searchResults';
+    resultsDiv.className = 'search-results';
+    document.querySelector('.catalog .container').insertBefore(resultsDiv, document.getElementById('bookGrid'));
+  }
+
+  // Si no existe el grid de libros, créalo
+  if (!document.getElementById('bookGrid')) {
+    const gridDiv = document.createElement('div');
+    gridDiv.id = 'bookGrid';
+    gridDiv.className = 'book-grid';
+    document.querySelector('.catalog .container').appendChild(gridDiv);
+  }
+
+  // Si no existe el formulario de agregar libro, muestra advertencia
+  if (!document.getElementById('addBookForm')) {
+    console.warn('No se encontró el formulario de agregar libro.');
+  }
+
+  // Si no hay libros cargados, muestra mensaje de ayuda
+  if (typeof books !== 'undefined' && books.length === 0) {
+    document.getElementById('bookGrid').innerHTML = '<p class="no-books">No hay libros disponibles. Agrega libros desde el panel de administración.</p>';
+  }
+
+  // Listeners de búsqueda y filtros
+  const searchInput = document.getElementById('searchInput');
+  if (searchInput) {
+    searchInput.addEventListener('input', function() {
+      if (typeof searchBooks === 'function') searchBooks();
+    });
+  }
+  const categoryFilter = document.getElementById('categoryFilter');
+  if (categoryFilter) {
+    categoryFilter.addEventListener('change', function() {
+      if (typeof searchBooks === 'function') searchBooks();
+    });
+  }
+  const typeFilter = document.getElementById('typeFilter');
+  if (typeFilter) {
+    typeFilter.addEventListener('change', function() {
+      if (typeof searchBooks === 'function') searchBooks();
+    });
+  }
+
+  // Listener para agregar libro
+  const addBookForm = document.getElementById('addBookForm');
+  if (addBookForm) {
+    addBookForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      const formData = new FormData(this);
+      const data = Object.fromEntries(formData);
+      if (typeof addNewBook === 'function') addNewBook(data);
+    });
+  }
+});
 </body>
 </html>
 
