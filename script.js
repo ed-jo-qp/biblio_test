@@ -915,8 +915,8 @@ function sortBooks() {
 // Mostrar libros
 function displayBooks() {
     const bookGrid = document.getElementById('bookGrid');
-    const startIndex = (currentPage - 1) * booksPerPage;
-    const endIndex = startIndex + booksPerPage;
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    const endIndex = startIndex + itemsPerPage;
     const currentBooks = filteredBooks.slice(startIndex, endIndex);
     
     if (currentView === 'grid') {
@@ -1060,7 +1060,7 @@ function changeView(view) {
 
 // Cambiar página
 function changePage(direction) {
-    const totalPages = Math.ceil(filteredBooks.length / booksPerPage);
+    const totalPages = Math.ceil(filteredBooks.length / itemsPerPage);
     const newPage = currentPage + direction;
     
     if (newPage >= 1 && newPage <= totalPages) {
@@ -1075,7 +1075,7 @@ function changePage(direction) {
 
 // Actualizar paginación
 function updatePagination() {
-    const totalPages = Math.ceil(filteredBooks.length / booksPerPage);
+    const totalPages = Math.ceil(filteredBooks.length / itemsPerPage);
     document.getElementById('pageInfo').textContent = `Página ${currentPage} de ${totalPages}`;
     
     const prevBtn = document.getElementById('prevPage');
