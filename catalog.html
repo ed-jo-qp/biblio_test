@@ -177,23 +177,7 @@
     <script src="config.js"></script>
     <script src="database.js"></script>
     <script src="api.js"></script>
-    <script>
-    // Inicialización robusta de la base de datos y API para catálogo
-    let libraryDB;
-    if (!window.libraryDB) {
-        libraryDB = new LibraryDatabase();
-        window.libraryDB = libraryDB;
-    } else {
-        libraryDB = window.libraryDB;
-    }
-    let libraryAPI;
-    if (!window.libraryAPI) {
-        libraryAPI = new LibraryAPI(libraryDB);
-        window.libraryAPI = libraryAPI;
-    } else {
-        libraryAPI = window.libraryAPI;
-    }
-    </script>
+    <!-- Inicialización de libraryDB y libraryAPI se realiza únicamente en script.js -->
     <script src="script.js"></script>
 </body>
 </html>

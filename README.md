@@ -228,13 +228,7 @@ await libraryAPI.restoreDatabase(backupData);
 ## 🚀 Uso del Sistema
 
 ### Inicialización
-```javascript
-// Crear instancia de la base de datos
-const libraryDB = new LibraryDatabase();
 
-// Crear instancia del API
-const libraryAPI = new LibraryAPI(libraryDB);
-```
 
 ### Operaciones Básicas
 ```javascript

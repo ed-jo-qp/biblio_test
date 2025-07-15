@@ -1530,7 +1530,6 @@ class LibraryDatabase {
 }
 
 // Instancia global de la base de datos
-const libraryDB = new LibraryDatabase();
 
 // Exportar para uso en otros archivos
 if (typeof module !== 'undefined' && module.exports) {

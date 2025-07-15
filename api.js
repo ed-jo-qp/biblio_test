@@ -786,10 +786,3 @@ class LibraryAPI {
         }
     }
 }
-
-// Instancia global del API
-const libraryAPI = new LibraryAPI(libraryDB);
-
-// Funciones auxiliares para la interfaz
-window.LibraryAPI = libraryAPI;
-window.LibraryDB = libraryDB;
