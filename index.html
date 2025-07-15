@@ -283,17 +283,19 @@
             </table>
           </div>
         </div>
-        <script>
-          function filterTable() {
-            const input = document.getElementById("searchInput");
-            const filter = input.value.toLowerCase();
-            const rows = document.querySelectorAll("#bibliotecaTable tbody tr");
-            rows.forEach(row => {
-              const text = row.innerText.toLowerCase();
-              row.style.display = text.includes(filter) ? "" : "none";
-            });
-          }
-        </script>
+    </section>
+
+    <script>
+      function filterTable() {
+        const input = document.getElementById("searchInput");
+        const filter = input.value.toLowerCase();
+        const rows = document.querySelectorAll("#bibliotecaTable tbody tr");
+        rows.forEach(row => {
+          const text = row.innerText.toLowerCase();
+          row.style.display = text.includes(filter) ? "" : "none";
+        });
+      }
+    </script>
     </section>
 
     <!-- Services Section -->
