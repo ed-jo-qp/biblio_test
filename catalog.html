@@ -179,5 +179,46 @@
     <script src="api.js"></script>
     <!-- Inicialización de libraryDB y libraryAPI se realiza únicamente en script.js -->
     <script src="script.js"></script>
+</script>
+
+<!-- Tabla de libros académicos con filtro de búsqueda simple -->
+<div style="max-width:900px;margin:2rem auto;">
+  <input type="text" id="searchInput" onkeyup="filterTable()" placeholder="Buscar por título, autor o año..." style="width:100%;padding:8px;margin-bottom:12px;">
+  <table id="bibliotecaTable" style="width:100%;border-collapse:collapse;">
+    <thead>
+      <tr style="background:#f0f0f0;">
+        <th style="padding:8px;border:1px solid #ccc;">Título</th>
+        <th style="padding:8px;border:1px solid #ccc;">Autor(es)</th>
+        <th style="padding:8px;border:1px solid #ccc;">Año</th>
+        <th style="padding:8px;border:1px solid #ccc;">Enlace</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>Educación y Ecología</td><td>Torres Ortega et al.</td><td>2024</td><td><a href="https://revistainterdisciplinaria.com/index.php/home/article/view/29" target="_blank">Ver</a></td></tr>
+      <tr><td>Sostenibilidad y desarrollo</td><td>Cabrera Pabón, L. L.</td><td>2022</td><td><a href="https://journal.uvm.edu.ve/index.php/momboy/article/view/75" target="_blank">Ver</a></td></tr>
+      <tr><td>Aproximaciones socioecológicas</td><td>Tomás-Cardoso et al.</td><td>2024</td><td><a href="https://revistas.ucm.es/index.php/OBMD/article/view/99729" target="_blank">Ver</a></td></tr>
+      <tr><td>Economic complexity and sustainability</td><td>Rafique et al.</td><td>2021</td><td><a href="https://link.springer.com/article/10.1007/s10668-021-01625-4" target="_blank">Ver</a></td></tr>
+      <tr><td>Environmental management systems</td><td>Rehman et al.</td><td>2021</td><td><a href="https://www.emerald.com/insight/content/doi/10.1108/md-06-2020-0800/full/html" target="_blank">Ver</a></td></tr>
+      <tr><td>Renewable energy transition</td><td>Afshan et al.</td><td>2022</td><td><a href="https://www.sciencedirect.com/science/article/pii/S096014812200965X" target="_blank">Ver</a></td></tr>
+      <tr><td>Environmental patents in South Asia</td><td>Murshed et al.</td><td>2021</td><td><a href="https://link.springer.com/article/10.1007/s11356-021-13381-z" target="_blank">Ver</a></td></tr>
+      <tr><td>Ciencias ambientales interdisciplinarias</td><td>Illescas-Cobos, A. A.</td><td>2025</td><td><a href="https://revistas.pucp.edu.pe/index.php/Kawsaypacha/article/view/29373" target="_blank">Ver</a></td></tr>
+      <tr><td>Rhizosphere Engineering</td><td>Hakim et al.</td><td>2021</td><td><a href="https://www.frontiersin.org/articles/10.3389/fsufs.2021.617157/full" target="_blank">Ver</a></td></tr>
+      <tr><td>Ecología de lo virtual</td><td>Pelbart, P. P.</td><td>2023</td><td><a href="https://www.redalyc.org/journal/6733/673377571014/" target="_blank">Ver</a></td></tr>
+      <tr><td>Ecología robótica desde el litoral</td><td>Holguín-Álvarez et al.</td><td>2023</td><td><a href="https://repositorio.uwiener.edu.pe/server/api/core/bitstreams/2976032b-f734-485e-99fc-9f9157917ecb/content" target="_blank">Ver</a></td></tr>
+      <tr><td>Conciencia ambiental</td><td>García Valencia, I. S.</td><td>2024</td><td><a href="https://crea.ujaen.es/items/df0db3f3-1f06-4dc8-8283-225a4133abb5" target="_blank">Ver</a></td></tr>
+      <tr><td>Educar para la sostenibilidad</td><td>Sierra Rubio, E.</td><td>2022</td><td><a href="https://ciegc.org.ve/wp-content/uploads/2023/01/sostenibilidad.pdf#page=212" target="_blank">Ver</a></td></tr>
+    </tbody>
+  </table>
+</div>
+<script>
+  function filterTable() {
+    const input = document.getElementById("searchInput");
+    const filter = input.value.toLowerCase();
+    const rows = document.querySelectorAll("#bibliotecaTable tbody tr");
+    rows.forEach(row => {
+      const text = row.innerText.toLowerCase();
+      row.style.display = text.includes(filter) ? "" : "none";
+    });
+  }
 </body>
 </html>
