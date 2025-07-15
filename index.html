@@ -1,1 +1,244 @@
-doc
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Biblioteca Virtual Universitaria</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <i class="fas fa-book-open"></i>
+                <h1>BiblioUni</h1>
+            </div>
+            <nav class="nav">
+                <ul>
+                    <li><a href="#home" class="nav-link active">Inicio</a></li>
+                    <li><a href="#catalog" class="nav-link">Catálogo</a></li>
+                    <li><a href="#services" class="nav-link">Servicios</a></li>
+                    <li><a href="about.html" class="nav-link">Acerca de</a></li>
+                    <li><a href="contact.html" class="nav-link">Contacto</a></li>
+                </ul>
+            </nav>
+            <div class="user-actions">
+                <button class="btn-login">
+                    <i class="fas fa-user"></i>
+                    Iniciar Sesión
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h2>Bienvenido a tu Biblioteca Virtual</h2>
+                <p>Accede a miles de libros, revistas y recursos académicos desde cualquier lugar</p>
+                <div class="search-container">
+                    <div class="search-box">
+                        <input type="text" id="searchInput" placeholder="Buscar libros, autores, temas...">
+                        <button class="search-btn" onclick="searchBooks()">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                    <div class="search-filters">
+                        <select id="categoryFilter">
+                            <option value="">Todas las categorías</option>
+                            <option value="ciencia">Ciencia</option>
+                            <option value="literatura">Literatura</option>
+                            <option value="historia">Historia</option>
+                            <option value="tecnologia">Tecnología</option>
+                            <option value="medicina">Medicina</option>
+                            <option value="derecho">Derecho</option>
+                        </select>
+                        <select id="typeFilter">
+                            <option value="">Todos los tipos</option>
+                            <option value="libro">Libro</option>
+                            <option value="revista">Revista</option>
+                            <option value="articulo">Artículo</option>
+                            <option value="tesis">Tesis</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quick Stats -->
+    <section class="stats">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <i class="fas fa-books"></i>
+                    <div class="stat-number">15,000+</div>
+                    <div class="stat-label">Libros</div>
+                </div>
+                <div class="stat-item">
+                    <i class="fas fa-newspaper"></i>
+                    <div class="stat-number">2,500+</div>
+                    <div class="stat-label">Revistas</div>
+                </div>
+                <div class="stat-item">
+                    <i class="fas fa-users"></i>
+                    <div class="stat-number">8,000+</div>
+                    <div class="stat-label">Usuarios</div>
+                </div>
+                <div class="stat-item">
+                    <i class="fas fa-clock"></i>
+                    <div class="stat-number">24/7</div>
+                    <div class="stat-label">Disponible</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Catalog Section -->
+    <section id="catalog" class="catalog">
+        <div class="container">
+            <h2>Catálogo de Libros</h2>
+            <div class="catalog-controls">
+                <div class="view-toggle">
+                    <button class="view-btn active" onclick="changeView('grid')">
+                        <i class="fas fa-th-large"></i>
+                    </button>
+                    <button class="view-btn" onclick="changeView('list')">
+                        <i class="fas fa-list"></i>
+                    </button>
+                </div>
+                <div class="sort-options">
+                    <select id="sortBy" onchange="sortBooks()">
+                        <option value="title">Ordenar por título</option>
+                        <option value="author">Ordenar por autor</option>
+                        <option value="year">Ordenar por año</option>
+                        <option value="rating">Ordenar por rating</option>
+                    </select>
+                </div>
+            </div>
+            <div id="searchResults" class="search-results"></div>
+            <div id="bookGrid" class="book-grid">
+                <!-- Los libros se cargarán aquí dinámicamente -->
+            </div>
+            <div class="pagination">
+                <button id="prevPage" onclick="changePage(-1)">Anterior</button>
+                <span id="pageInfo">Página 1 de 1</span>
+                <button id="nextPage" onclick="changePage(1)">Siguiente</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="services">
+        <div class="container">
+            <h2>Nuestros Servicios</h2>
+            <div class="services-grid">
+                <div class="service-card">
+                    <i class="fas fa-download"></i>
+                    <h3>Descarga Digital</h3>
+                    <p>Descarga libros y documentos en formato PDF, EPUB y más</p>
+                </div>
+                <div class="service-card">
+                    <i class="fas fa-bookmark"></i>
+                    <h3>Favoritos</h3>
+                    <p>Guarda tus libros favoritos para acceso rápido</p>
+                </div>
+                <div class="service-card">
+                    <i class="fas fa-comments"></i>
+                    <h3>Reseñas</h3>
+                    <p>Lee y escribe reseñas de libros con otros usuarios</p>
+                </div>
+                <div class="service-card">
+                    <i class="fas fa-history"></i>
+                    <h3>Historial</h3>
+                    <p>Revisa tu historial de lecturas y descargas</p>
+                </div>
+                <div class="service-card">
+                    <i class="fas fa-bell"></i>
+                    <h3>Notificaciones</h3>
+                    <p>Recibe alertas sobre nuevos libros y recordatorios</p>
+                </div>
+                <div class="service-card">
+                    <i class="fas fa-mobile-alt"></i>
+                    <h3>Acceso Móvil</h3>
+                    <p>Accede desde tu smartphone o tablet</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>BiblioUni</h3>
+                    <p>Tu biblioteca virtual universitaria con acceso a miles de recursos académicos.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>Enlaces Rápidos</h4>
+                    <ul>
+                        <li><a href="#home">Inicio</a></li>
+                        <li><a href="#catalog">Catálogo</a></li>
+                        <li><a href="#services">Servicios</a></li>
+                        <li><a href="about.html">Acerca de</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contacto</h4>
+                    <p><i class="fas fa-envelope"></i> info@bibliouji.edu</p>
+                    <p><i class="fas fa-phone"></i> (555) 123-4567</p>
+                    <p><i class="fas fa-map-marker-alt"></i> Campus Universitario</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Horarios</h4>
+                    <p>Lunes - Viernes: 8:00 AM - 10:00 PM</p>
+                    <p>Sábados: 9:00 AM - 6:00 PM</p>
+                    <p>Domingos: 12:00 PM - 8:00 PM</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 BiblioUni. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modal for Book Details -->
+    <div id="bookModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div id="bookDetails"></div>
+        </div>
+    </div>
+
+    <!-- Login Modal -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Iniciar Sesión</h2>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="username">Usuario:</label>
+                    <input type="text" id="username" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Contraseña:</label>
+                    <input type="password" id="password" required>
+                </div>
+                <button type="submit">Iniciar Sesión</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
