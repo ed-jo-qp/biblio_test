@@ -6,6 +6,27 @@
     <title>Biblioteca Virtual Universitaria</title>
     <link rel="stylesheet" href="styles.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .btn-logout {
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: background-color 0.3s;
+        }
+        .btn-logout:hover {
+            background-color: #c82333;
+        }
+        #currentUserDisplay {
+            background: rgba(255,255,255,0.1);
+            padding: 8px 12px;
+            border-radius: 5px;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+    </style>
 </head>
 <body>
     <!-- Login Overlay -->
@@ -26,8 +47,11 @@
           <div style="margin-top:1.5rem;padding:1rem;background:#f8f9fa;border-radius:8px;border:1px solid #e9ecef;">
             <h4 style="margin:0 0 0.8rem 0;color:#495057;font-size:0.95rem;">Usuarios disponibles:</h4>
             <div style="font-size:0.85rem;color:#6c757d;line-height:1.4;">
-              <div><strong>Administrador:</strong> usuario: admin, contraseña: 1234</div>
-              <div><strong>Usuario normal:</strong> usuario: user, contraseña: 1234</div>
+              <div style="margin-bottom:0.5rem;"><strong>🔧 Administrador:</strong> usuario: <code>admin</code>, contraseña: <code>1234</code></div>
+              <div style="font-size:0.8rem;color:#868e96;margin-bottom:0.8rem;">• Acceso completo: gestionar libros, préstamos, reportes y usuarios</div>
+              
+              <div style="margin-bottom:0.5rem;"><strong>👤 Usuario normal:</strong> usuario: <code>user</code>, contraseña: <code>1234</code></div>
+              <div style="font-size:0.8rem;color:#868e96;">• Acceso limitado: solo consultar catálogo y gestionar sus préstamos</div>
             </div>
           </div>
         </form>
@@ -52,9 +76,18 @@
                 </ul>
             </nav>
             <div class="user-actions">
-                <button class="btn-login">
+                <span id="currentUserDisplay" style="color:#fff;margin-right:1rem;font-size:0.9rem;display:none;">
+                    <i class="fas fa-user-circle"></i> 
+                    <span id="currentUserName"></span> 
+                    (<span id="currentUserType"></span>)
+                </span>
+                <button class="btn-login" id="loginButton" onclick="showLoginModal()">
                     <i class="fas fa-user"></i>
                     Iniciar Sesión
+                </button>
+                <button class="btn-logout" id="logoutButton" onclick="logout()" style="display:none;margin-left:0.5rem;">
+                    <i class="fas fa-sign-out-alt"></i>
+                    Cerrar Sesión
                 </button>
                 <button class="btn-admin" onclick="toggleAdminMode()" style="display: none;">
                     <i class="fas fa-cog"></i>
@@ -498,55 +531,161 @@
     <section id="admin" class="admin">
         <div class="container" id="mainAdmin" style="display:none;">
 <script>
-// Protección de acceso por credenciales
+// Protección de acceso por credenciales y gestión de usuarios
 document.addEventListener('DOMContentLoaded', function() {
   const overlay = document.getElementById('loginOverlay');
   const form = document.getElementById('loginAccessForm');
   const user = document.getElementById('loginUser');
   const pass = document.getElementById('loginPass');
   const error = document.getElementById('loginError');
-  // Oculta todo el contenido principal hasta login
-  function showMainContent(userType) {
+  
+  // Verificar si ya hay una sesión activa
+  checkExistingSession();
+  
+  // Verificar permisos cada vez que se navegue entre secciones
+  setupSectionNavigation();
+  
+  function checkExistingSession() {
+    const isLoggedIn = localStorage.getItem('isLoggedIn');
+    const userType = localStorage.getItem('userType');
+    const userName = localStorage.getItem('userName');
+    
+    if (isLoggedIn === 'true' && userType && userName) {
+      overlay.style.display = 'none';
+      showMainContent(userType, userName);
+      updateUserDisplay(userName, userType);
+    }
+  }
+  
+  function setupSectionNavigation() {
+    // Verificar permisos al cambiar entre secciones internas
+    document.addEventListener('click', function(e) {
+      if (e.target.matches('.nav-link') || e.target.closest('.nav-link')) {
+        setTimeout(() => applyUserPermissions(), 100);
+      }
+    });
+  }
+  
+  function showMainContent(userType, userName) {
     document.getElementById('mainHeader').style.display = '';
     document.getElementById('mainFooter').style.display = '';
     document.getElementById('mainCatalog').style.display = '';
     document.getElementById('mainServices').style.display = '';
     document.getElementById('mainLoans').style.display = '';
     
-    // Solo mostrar administración si es admin
-    if(userType === 'admin') {
-      document.getElementById('mainAdmin').style.display = '';
-      document.getElementById('adminNavLink').style.display = '';
-    } else {
-      document.getElementById('mainAdmin').style.display = 'none';
-      document.getElementById('adminNavLink').style.display = 'none';
-    }
+    // Aplicar permisos específicos del usuario
+    applyUserPermissions(userType);
     
-    // Guardar tipo de usuario en localStorage para otras páginas
+    // Guardar información de sesión
     localStorage.setItem('userType', userType);
+    localStorage.setItem('userName', userName);
     localStorage.setItem('isLoggedIn', 'true');
   }
+  
+  function applyUserPermissions(userType = localStorage.getItem('userType')) {
+    if (userType === 'admin') {
+      // Admin: acceso completo
+      document.getElementById('mainAdmin').style.display = '';
+      if (document.getElementById('adminNavLink')) {
+        document.getElementById('adminNavLink').style.display = '';
+      }
+    } else if (userType === 'user') {
+      // Usuario normal: sin acceso a administración
+      document.getElementById('mainAdmin').style.display = 'none';
+      if (document.getElementById('adminNavLink')) {
+        document.getElementById('adminNavLink').style.display = 'none';
+      }
+    }
+  }
+  
+  function updateUserDisplay(userName, userType) {
+    const currentUserDisplay = document.getElementById('currentUserDisplay');
+    const currentUserName = document.getElementById('currentUserName');
+    const currentUserTypeSpan = document.getElementById('currentUserType');
+    const loginButton = document.getElementById('loginButton');
+    const logoutButton = document.getElementById('logoutButton');
+    
+    if (userName && userType) {
+      currentUserName.textContent = userName;
+      currentUserTypeSpan.textContent = userType === 'admin' ? 'Administrador' : 'Usuario';
+      currentUserDisplay.style.display = 'inline';
+      loginButton.style.display = 'none';
+      logoutButton.style.display = 'inline-block';
+    } else {
+      currentUserDisplay.style.display = 'none';
+      loginButton.style.display = 'inline-block';
+      logoutButton.style.display = 'none';
+    }
+  }
+  
+  // Función global para mostrar modal de login
+  window.showLoginModal = function() {
+    overlay.style.display = 'flex';
+    user.value = '';
+    pass.value = '';
+    error.style.display = 'none';
+    user.focus();
+  };
+  
+  // Función global para logout
+  window.logout = function() {
+    localStorage.removeItem('isLoggedIn');
+    localStorage.removeItem('userType');
+    localStorage.removeItem('userName');
+    
+    // Ocultar todo el contenido
+    document.getElementById('mainHeader').style.display = 'none';
+    document.getElementById('mainFooter').style.display = 'none';
+    document.getElementById('mainCatalog').style.display = 'none';
+    document.getElementById('mainServices').style.display = 'none';
+    document.getElementById('mainLoans').style.display = 'none';
+    document.getElementById('mainAdmin').style.display = 'none';
+    
+    // Mostrar overlay de login
+    overlay.style.display = 'flex';
+    updateUserDisplay(null, null);
+    user.focus();
+  };
+  
   form.addEventListener('submit', function(e) {
     e.preventDefault();
     const username = user.value.trim();
     const password = pass.value;
+    let userName = '';
+    let userType = '';
     
-    if(username === 'admin' && password === '1234') {
+    if (username === 'admin' && password === '1234') {
+      userName = 'Administrador';
+      userType = 'admin';
       overlay.style.display = 'none';
-      showMainContent('admin');
-    } else if(username === 'user' && password === '1234') {
+      showMainContent(userType, userName);
+      updateUserDisplay(userName, userType);
+    } else if (username === 'user' && password === '1234') {
+      userName = 'Usuario Normal';
+      userType = 'user';
       overlay.style.display = 'none';
-      showMainContent('user');
+      showMainContent(userType, userName);
+      updateUserDisplay(userName, userType);
     } else {
       error.style.display = 'block';
       pass.value = '';
       pass.focus();
     }
   });
+  
   // Evita cerrar el modal con Escape o click fuera
-  overlay.addEventListener('click', e => { e.stopPropagation(); });
+  overlay.addEventListener('click', function(e) {
+    if (e.target === overlay) {
+      e.stopPropagation();
+    }
+  });
+  
   form.addEventListener('click', e => { e.stopPropagation(); });
-  user.focus();
+  
+  // Si no hay sesión activa, mostrar el overlay
+  if (localStorage.getItem('isLoggedIn') !== 'true') {
+    user.focus();
+  }
 });
 </script>
             <h2>Panel de Administración</h2>
