@@ -23,6 +23,13 @@
           </div>
           <div id="loginError" style="color:#c00;font-size:0.98rem;margin-bottom:1rem;display:none;text-align:center;">Credenciales incorrectas</div>
           <button type="submit" style="width:100%;padding:11px 0;background:#2563eb;color:#fff;font-weight:600;border:none;border-radius:7px;font-size:1.08rem;cursor:pointer;">Ingresar</button>
+          <div style="margin-top:1.5rem;padding:1rem;background:#f8f9fa;border-radius:8px;border:1px solid #e9ecef;">
+            <h4 style="margin:0 0 0.8rem 0;color:#495057;font-size:0.95rem;">Usuarios disponibles:</h4>
+            <div style="font-size:0.85rem;color:#6c757d;line-height:1.4;">
+              <div><strong>Administrador:</strong> usuario: admin, contraseña: 1234</div>
+              <div><strong>Usuario normal:</strong> usuario: user, contraseña: 1234</div>
+            </div>
+          </div>
         </form>
       </div>
     </div>
@@ -38,7 +45,7 @@
                     <li><a href="index.html" class="nav-link active">Inicio</a></li>
                     <li><a href="catalog.html" class="nav-link">Catálogo</a></li>
                     <li><a href="loans.html" class="nav-link">Préstamos</a></li>
-                    <li><a href="admin.html" class="nav-link">Administración</a></li>
+                    <li id="adminNavLink"><a href="admin.html" class="nav-link">Administración</a></li>
                     <li><a href="services.html" class="nav-link">Servicios</a></li>
                     <li><a href="about.html" class="nav-link">Acerca de</a></li>
                     <li><a href="contact.html" class="nav-link">Contacto</a></li>
@@ -499,19 +506,37 @@ document.addEventListener('DOMContentLoaded', function() {
   const pass = document.getElementById('loginPass');
   const error = document.getElementById('loginError');
   // Oculta todo el contenido principal hasta login
-  function showMainContent() {
+  function showMainContent(userType) {
     document.getElementById('mainHeader').style.display = '';
     document.getElementById('mainFooter').style.display = '';
     document.getElementById('mainCatalog').style.display = '';
     document.getElementById('mainServices').style.display = '';
     document.getElementById('mainLoans').style.display = '';
-    document.getElementById('mainAdmin').style.display = '';
+    
+    // Solo mostrar administración si es admin
+    if(userType === 'admin') {
+      document.getElementById('mainAdmin').style.display = '';
+      document.getElementById('adminNavLink').style.display = '';
+    } else {
+      document.getElementById('mainAdmin').style.display = 'none';
+      document.getElementById('adminNavLink').style.display = 'none';
+    }
+    
+    // Guardar tipo de usuario en localStorage para otras páginas
+    localStorage.setItem('userType', userType);
+    localStorage.setItem('isLoggedIn', 'true');
   }
   form.addEventListener('submit', function(e) {
     e.preventDefault();
-    if(user.value.trim()==='admin' && pass.value==='1234') {
+    const username = user.value.trim();
+    const password = pass.value;
+    
+    if(username === 'admin' && password === '1234') {
       overlay.style.display = 'none';
-      showMainContent();
+      showMainContent('admin');
+    } else if(username === 'user' && password === '1234') {
+      overlay.style.display = 'none';
+      showMainContent('user');
     } else {
       error.style.display = 'block';
       pass.value = '';
